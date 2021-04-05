@@ -190,14 +190,13 @@ def storeNodes(node, symbolCodeDict, val=''):
     # huffman code for current node
     newVal = val + str(node.huff)
 
-    # if node is not an edge node
-    # then traverse inside it
+    # if node is not a leaf node then traverse inside it
     if(node.left):
         storeNodes(node.left, symbolCodeDict, newVal)
     if(node.right):
         storeNodes(node.right, symbolCodeDict, newVal)
 
-    # if node is edge node then display its huffman code
+    # if node is edge node then display its huffman code (leaf node)
     if(not node.left and not node.right):
         symbolCodeDict[node.symbol] = newVal
 
@@ -284,15 +283,10 @@ def LDP_compressed(D: Dict[str, int], epsilon=.1):
     D_LDP = defaultdict(int)
     for key, val in D.items():
         # Decomposition of index into bits
-        bits = list()
-        for bit in key:
-            bits.append(int(bit))
+        bits = [int(bit) for bit in key]
         for _ in range(val):
             # The outcome 1 means "flip", the outcome 0 means "don't flip"
-            flips = list()
-            for bit in bits:
-                flip = np.random.binomial(1, epsilon)
-                flips.append(flip)
+            flips = np.random.binomial(1, epsilon, len(bits))
             # The new index calculation
             newIndex = "".join(str(abs(bits[i]-flips[i]))
                                for i in range(len(bits)))
