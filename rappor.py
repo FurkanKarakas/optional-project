@@ -48,7 +48,12 @@ if __name__ == "__main__":
     B = np.array([0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1,
                  1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1], dtype=int)
     B_fake = FakeBloomFilter(B, "furkan", 0.05)
+    memorizedFilters["furkan"] = B_fake
     C = RandomizedResponse(B_fake, 0.75, 0.50)
+    C2 = RandomizedResponse(B_fake, 0.75, 0.50)
+    C3 = RandomizedResponse(B_fake, 0.75, 0.50)
     print(B)
     print(B_fake)
     print(C)
+    print(C2)
+    print(C3)
